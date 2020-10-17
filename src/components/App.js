@@ -11,7 +11,8 @@ function App() {
     const [name, setName] = React.useState(false);
     const [title,   setTitle] = React.useState(false);
     const [children, setChildren] = React.useState(false);
-    const [selectedCard, setSelectedCard] = React.useState(null);
+    const [selectedCard, setSelectedCard] = React.useState(null); 
+    const [buttonText, setButtonText] = React.useState(null);
 
 
 
@@ -24,8 +25,9 @@ function App() {
          <input className="popup__item popup__item_el_link" id="avatar-input" name="avatar_link" type="url" placeholder="Ссылка на картинку" required/>
          <span id="avatar-input-error" className="popup__item-error"></span>
         </fieldset>
-        <button className="popup__btn-save" type="submit" name="save">Сохранить</button>
     </>);
+             setButtonText("Сохранить");
+
     }
     
     function handleEditProfileClick() {
@@ -39,8 +41,8 @@ function App() {
                         <input className="popup__item popup__item_el_job" id="job-input" name="job" type="text" placeholder="О себе" required minLength="2" maxLength="200"/>
                         <span id="job-input-error" className="popup__item-error"></span>
                     </fieldset>
-                    <button className="popup__btn-save" type="submit" name="save">Сохранить</button>
     </>);
+         setButtonText("Сохранить");
     }
     
     function handleAddPlaceClick() {
@@ -54,8 +56,9 @@ function App() {
                     <input className="popup__item popup__item_el_link" id="link-input" name="link" type="url" placeholder="Ссылка на картинку" required/>
                     <span id="link-input-error" className="popup__item-error"></span>
                 </fieldset>
-                <button className="popup__btn-save" type="submit" name="save" disabled>Создать</button>
     </>);
+        setButtonText("Создать");
+
     }
 
     function handleCardClick(card){
@@ -71,7 +74,7 @@ function App() {
     return (<div className="page" >
         <Header />
         <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={ handleAddPlaceClick} onCardClick={handleCardClick}/>
-        <PopupWithForm isOpen={isOpen} name={name} title={title} children={children} onClose={closeAllPopups}/>
+        <PopupWithForm isOpen={isOpen} name={name} title={title} children={children} onClose={closeAllPopups} buttonText={buttonText}/>
        {selectedCard && <ImagePopup card={selectedCard} onClose={closeAllPopups}/>  }
         <Footer />
          </div>

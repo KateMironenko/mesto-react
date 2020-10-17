@@ -10,6 +10,7 @@ function PopupWithForm (props){
         <form className={`popup__form popup__form_${props.name}`} name={`${props.name}_form`} noValidate>
             <h2 className="popup__heading">{props.title}</h2>
             {props.children}
+            <button className="popup__btn-save" type="submit" name="save">{props.buttonText}</button>
         </form>
         <button className="popup__btn-close" type="reset" name="close" onClick={props.onClose}>
         <img className="popup__close-icon" src={closeIcon} alt="Закрыть"/>
