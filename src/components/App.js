@@ -15,6 +15,7 @@ function App() {
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false); 
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
     const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
+    const [isCardPopupOpen, setCardPopupOpen] = React.useState(false);
     const [selectedCard, setSelectedCard] = React.useState(null); 
     const [currentUser, setCurrentUser] = React.useState(null);
     const [cards, setCards] = React.useState([]);
@@ -78,11 +79,9 @@ function App() {
         api.updateUserInfo(nameInfo, jobInfo)
         .then((userInfo)=>{
             setCurrentUser({name: userInfo.name,
-            about: userInfo.about, avatar:userInfo.avatar})
+            about: userInfo.about, avatar:userInfo.avatar});
+            closeAllPopups();        
         })
-        .finally(() => {
-              closeAllPopups()        
-            })
         .catch((err) => {
                 console.log(err);
             });
@@ -118,13 +117,15 @@ function App() {
 
     function handleCardClick(card){
         setSelectedCard(card);
+        setCardPopupOpen(true);
     }
 
     function closeAllPopups(){
         setIsEditProfilePopupOpen(false);
         setIsEditAvatarPopupOpen(false);
         setAddPlacePopupOpen(false);
-        setSelectedCard(null);
+        setCardPopupOpen(false);
+
     }
     
     return (
@@ -135,7 +136,7 @@ function App() {
         <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}  onUpdateUser={handleUpdateUser} />
         <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}  onUpdateAvatar={handleUpdateAvatar} />
         <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}  onUpdateAvatar={handleAddPlaceSubmit} />
-       {selectedCard && <ImagePopup card={selectedCard} onClose={closeAllPopups}/>  }
+        <ImagePopup  isOpen={isCardPopupOpen} card={selectedCard} onClose={closeAllPopups} />  
         <Footer />
         </CurrentUserContext.Provider>}
          </div>
