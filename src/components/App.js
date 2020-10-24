@@ -92,10 +92,8 @@ function App() {
         .then((userInfo)=>{
             setCurrentUser({name: userInfo.name,
                 about: userInfo.about, avatar:userInfo.avatar})
+                closeAllPopups();   
         })
-        .finally(() => {
-              closeAllPopups()        
-            })
         .catch((err) => {
                 console.log(err);
             });
@@ -106,10 +104,8 @@ function App() {
         api.addCard(cardName, cardLink)
         .then((newCard)=>{
             setCards([newCard, ...cards]); 
+            closeAllPopups()    
         })
-        .finally(() => {
-              closeAllPopups()        
-            })
         .catch((err) => {
                 console.log(err);
             });
